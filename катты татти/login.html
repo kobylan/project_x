@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Login Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+  <div class="login_form_container">
+    <div class="login_form">
+      <h2>Login</h2> 
+      <div class="input_group">
+        <i class="fa fa-user"></i>
+        <input
+          type="text"
+          placeholder="Username"
+          class="input_text"
+          name="username"
+        />
+      </div>
+      <div class="input_group">
+        <i class="fa fa-unlock-alt"></i>
+        <input
+          type="password"
+          placeholder="Password"
+          class="input_text"
+          name="password"
+        />
+      </div>
+      <div class="button_group" id="login_button">
+        <button type="button" class="btn" onclick="loginUser()">Login</button>
+      </div>
+      <div class="fotter">
+        <a href="frogot_password.html">Forgot password?</a>
+        <a href="register.html">Registration <==</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function loginUser() {
+      const username = document.querySelector('input[name="username"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+  
+      // TODO: Add any additional validation if needed
+  
+      try {
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+  
+        if (response.ok) {
+          alert('Login successful.');
+          window.location.href = '/web-site.html';
+        } else {
+          alert('Invalid username or password');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+  </script>
+</body>
+</html>
